@@ -1,0 +1,2 @@
+This folder is for world art assets.
+For ease, try to ensure that all art in here is in BMP format.

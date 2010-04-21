@@ -1,0 +1,65 @@
+This is the main TODO list. Here we will try to build a comprehensive list
+of everything that needs to be put into this program. Technical Lead will build a 
+framework for others to build off of and add to.
+
+What we have so far:
+ 
+class -> gameInfoHandler                This is a singleton core class that holds all the games information
+members: 
+world_state                             This is the overall state that the world is in (i.e. opening menu, options, gameplay, etc).
+player_char[2]                          These are the characters being played
+current_area                            stores what backgrounds etc are to be used for the next game
+characterList                           (optional?)stores all the possible character choices the player can make
+					if used, will probably need something like it for background environments
+keyMapping                              some kind of data structure that handles the keymapping for gameplay
+
+event e                                 This is the SDL event handler object
+methods:
+
+
+class -> world_state                    These world states will hold all pertinant information for what they are doing
+					They will be singletons, and will be used as a finite state machine.
+members:
+this will depend heavily on what 
+each specific state is doing 
+methods:                                They will have five core functions, the begin will be called on entry, the end on exit
+begin()
+update()
+draw()
+input(event e)
+exit()
+
+
+
+some of the world states:
+
+----------------------------------------------------------
+
+choose_char: world_state
+begin()                                 Will clear away previous choices just in case
+draw()                                  draws what's going on
+update()                                probably won't do much, maybe update animations if we have those here
+input(e)                                will take player selections. when selections made it will move to game state
+					it will set the player_chars and current_area in the gameInfoHandler
+					if the players choose, it can go back to the main menu instead
+exit()                                  probably won't do anything
+
+----------------------------------------------------------
+
+game_play: world_state
+begin()                                 loads all the assets necessary for play
+draw()                                  lot of work here, will draw everything. consider using a dirty rect strategy
+update()                                most of this will be tetris block work and animation work
+					this is possibly the heaviest function in the game
+					will recognize when a player has won and will set that for display
+input(e)                                Also very heavy, this will handle all the player input for the main game
+exit()                                  Will clear away the char choices and the area choice
+
+
+----------------------------------------------------------
+
+
+
+
+
+
