@@ -189,6 +189,10 @@
 				Name="classes"
 				>
 				<File
+					RelativePath=".\Animation.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\Character.cpp"
 					>
 				</File>
@@ -222,6 +226,10 @@
 			<Filter
 				Name="classes"
 				>
+				<File
+					RelativePath=".\Animation.h"
+					>
+				</File>
 				<File
 					RelativePath=".\Character.h"
 					>

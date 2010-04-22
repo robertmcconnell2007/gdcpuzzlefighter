@@ -10,6 +10,8 @@ GDH::GDH()
 {
 	curr_State = NULL;
 	gameRunning = true;
+	//temporary, this will be changed later. just testing
+	changeState((World_State*)Choose_Character::Ins());
 	//TODO: load core information from ini file, i.e. resolution etc
 	//make screen and all that jazz for now will just use some magic numbers
 
