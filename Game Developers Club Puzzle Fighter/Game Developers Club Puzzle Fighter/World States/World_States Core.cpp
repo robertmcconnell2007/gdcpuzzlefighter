@@ -16,7 +16,7 @@ World_State::~World_State()
 }
 
 ////////////////////////////////////////////////////
-/////////////Choose Char States/////////////////////
+/////////////Choose Char State//////////////////////
 ////////////////////////////////////////////////////
 
 //Choose_Character::Choose_Character()
@@ -52,10 +52,46 @@ void Choose_Character::input(SDL_Event e)
 
 void Choose_Character::exit()
 {
-	//playable_chars
 }
 
 void Choose_Character::load_playable_chars()
 {
 	//loop and populate the list of playable characters
+}
+
+void Choose_Character::deload_playable_chars()
+{
+	playable_chars.clear();
+}
+
+////////////////////////////////////////////////////
+/////////////Game Play State////////////////////////
+////////////////////////////////////////////////////
+
+GamePlay* GamePlay::Ins()
+{
+	static GamePlay instance;
+	return & instance;
+}
+
+void GamePlay::begin()
+{
+	
+}
+
+void GamePlay::update(int msPassed)
+{
+}
+
+void GamePlay::draw()
+{
+}
+
+void GamePlay::input(SDL_Event e)
+{
+}
+
+void GamePlay::exit()
+{
+	//playable_chars
 }
