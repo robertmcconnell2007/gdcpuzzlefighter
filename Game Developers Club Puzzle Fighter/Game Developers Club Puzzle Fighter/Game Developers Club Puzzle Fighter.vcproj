@@ -40,6 +40,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
+				AdditionalIncludeDirectories="SolutionDir\include"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -57,7 +58,10 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalDependencies="SDL.lib SDLmain.lib SDL_mixer.lib SDL_ttf.lib Ws2_32.lib"
+				AdditionalLibraryDirectories="SolutionDir\lib"
 				GenerateDebugInformation="true"
+				SubSystem="2"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -162,21 +166,81 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
+				RelativePath=".\Game Data Handler.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\graphicsloader.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\MAIN.cpp"
 				>
 			</File>
+			<Filter
+				Name="World States"
+				>
+				<File
+					RelativePath=".\World States\World_States Core.cpp"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="classes"
+				>
+				<File
+					RelativePath=".\Character.cpp"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Header Files"
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
+			<File
+				RelativePath=".\Game Data Handler.h"
+				>
+			</File>
+			<File
+				RelativePath=".\graphicsloader.h"
+				>
+			</File>
+			<File
+				RelativePath=".\MersenneTwister.h"
+				>
+			</File>
+			<Filter
+				Name="World States"
+				>
+				<File
+					RelativePath=".\World States\World_States Core.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="classes"
+				>
+				<File
+					RelativePath=".\Character.h"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Resource Files"
 			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav"
 			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
 			>
+			<Filter
+				Name="World Assets"
+				>
+			</Filter>
+			<Filter
+				Name="Character Assets"
+				>
+			</Filter>
 		</Filter>
 	</Files>
 	<Globals>
