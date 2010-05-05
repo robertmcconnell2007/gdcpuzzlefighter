@@ -1,4 +1,5 @@
 #include "Game Data Handler.h"
+#include "World States\World_States Core.h"
 
 GDH * GDH::Ins()
 {
@@ -11,11 +12,12 @@ GDH::GDH()
 	curr_State = NULL;
 	gameRunning = true;
 	//temporary, this will be changed later. just testing
-	changeState((World_State*)Choose_Character::Ins());
+	
 	//TODO: load core information from ini file, i.e. resolution etc
 	//make screen and all that jazz for now will just use some magic numbers
 
 	screen = SDL_SetVideoMode(860, 640, 32, SDL_SWSURFACE);
+	changeState((World_State*)Choose_Character::Ins());
 }
 
 GDH::~GDH()
@@ -58,7 +60,7 @@ void GDH::input()
 	if(curr_State)
 		curr_State->input(e);
 	//if there are any global checks for input, they belong here
-	if(e.type == SDL_QUIT)
+	if(e.type == SDL_QUIT || e.key.keysym.sym == SDLK_RETURN)
 	{
 		gameRunning = false;
 	}
