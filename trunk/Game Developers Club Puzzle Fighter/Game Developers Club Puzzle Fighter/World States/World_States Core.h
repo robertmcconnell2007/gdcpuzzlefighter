@@ -1,6 +1,6 @@
 #pragma once
 #include <vector>
-#include "SDL.h"
+#include "..\..\include\SDL.h"
 #include "..\Character.h"
 using namespace std;
 
