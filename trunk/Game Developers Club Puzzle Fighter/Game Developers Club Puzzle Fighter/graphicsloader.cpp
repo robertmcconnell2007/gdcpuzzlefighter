@@ -91,7 +91,7 @@ int getRandomNum()
 
 void writeText(SDL_Surface * ascii, SDL_Rect * asciiSize, SDL_Surface * screen, string output, int positionX, int positionY)
 {
-	for(int i = 0; i < (unsigned)output.length(); ++i)
+	for(unsigned int i = 0; i < (unsigned)output.length(); ++i)
 	{
 		drawATile(ascii, asciiSize, (int)(output[i]), screen, positionX, positionY);
 		positionX += asciiSize->w;
@@ -109,9 +109,9 @@ void writeToConsole(SDL_Surface * ascii, SDL_Rect * asciiSize, SDL_Surface * scr
 {
 	int tempPosX = console->x;
 	int tempPosY = console->y;
-	for(int i = 0; i < output.length(); ++i)
+	for(int i = 0; (unsigned)i < output.length(); ++i)
 	{
-		if(output[i] == '^' && (i + 2) < output.length())
+		if(output[i] == '^' && (unsigned)(i + 2) < output.length())
 		{
 			switch(output[i + 1])
 			{
