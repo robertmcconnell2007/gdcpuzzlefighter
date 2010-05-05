@@ -1,8 +1,9 @@
 #pragma once
-#include "World States\World_States Core.h"
+//#include "World States\World_States Core.h"
 #include "Character.h"
 using namespace std;
 
+class World_State;
 //GDH -> Game Data Handler
 class GDH
 {

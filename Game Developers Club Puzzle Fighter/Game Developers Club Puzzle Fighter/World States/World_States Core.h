@@ -2,8 +2,11 @@
 #include <vector>
 #include "..\..\include\SDL.h"
 #include "..\Character.h"
+#include "..\graphicsloader.h"
 using namespace std;
 
+class GDH;
+#include "..\Game Data Handler.h"
 /*
 copy paste this and change [name] to create a new state
 all states have six basic funtions. ins is how you access the singleton (i.e. WorldState::Ins()->something)
@@ -46,6 +49,8 @@ class Choose_Character : public World_State
 protected:
 	//number of playable chars, player ones postion in list, player twos position in list
 	int num_chars, list_position_1, list_position_2;
+	SDL_Surface * arb_img;
+	SDL_Rect img_rect;
 	//storage list for playable characters
 	vector<Character*> playable_chars;
 	//TODO: add surfaces and rects to handle all the menu and background stuff

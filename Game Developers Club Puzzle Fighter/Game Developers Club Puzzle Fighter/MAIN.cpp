@@ -26,7 +26,7 @@ int main(int argc, char ** argv)
 	while(GDH::Ins()->isGameRunning())
 	{
 		now = SDL_GetTicks();
-		msPassed = then - now;
+		msPassed = now - then;
 		then = now;
 		gameUpdateClock += msPassed;
 		gameDrawClock += msPassed;
@@ -49,6 +49,8 @@ int main(int argc, char ** argv)
 		{
 			GDH::Ins()->draw();
 			gameDrawClock = 0;
+			if(SDL_Flip(GDH::Ins()->getScreen()) == -1)
+				return 1;
 		}
 	}
 	//close out sdl
