@@ -1,5 +1,5 @@
 #pragma once
-#include "SDL.h"
+#include "..\include\SDL.h"
 
 class Animation
 {

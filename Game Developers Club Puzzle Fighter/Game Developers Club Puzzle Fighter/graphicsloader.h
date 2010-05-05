@@ -1,7 +1,7 @@
 #ifndef GRAPHICS_LOADER_H
 #define GRAPHICS_LOADER_H
 #include <iostream>
-#include "SDL.h"
+#include "..\include\SDL.h"
 
 //---------- if anyone can figure out why the ttf isn't loading properly, fix it.
 //#include "SDL_ttf.h"

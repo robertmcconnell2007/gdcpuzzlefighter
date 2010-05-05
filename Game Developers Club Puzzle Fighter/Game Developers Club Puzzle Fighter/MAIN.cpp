@@ -1,6 +1,6 @@
 #include <iostream>
 #include <string>
-#include "SDL.h"
+#include "..\include\SDL.h"
 //TODO: true type font .h isn't loading properly, fix it
 //#include "SDL_ttf.h"	// true-type font library for SDL
 #include "Game Data Handler.h"
