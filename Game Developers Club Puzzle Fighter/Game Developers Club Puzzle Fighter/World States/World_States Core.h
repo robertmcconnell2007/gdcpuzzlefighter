@@ -43,14 +43,44 @@ public:
 	~World_State();
 };
 
+class Splash_Screen : public World_State
+{
+protected:
+	SDL_Surface * splashSurface;
+	SDL_Rect SSRect;
+public:
+	static Splash_Screen * Ins();
+	void begin();
+	void update(int msPassed);
+	void draw();
+	void input(SDL_Event e);
+	void exit();
+};
+
+class Main_Menu : public World_State
+{
+protected:
+	SDL_Surface * backgroundSurface;
+	SDL_Surface * menuButtons;
+	SDL_Rect BGSRect;
+	SDL_Rect optionsRect;
+	SDL_Rect quitRect;
+	SDL_Rect playRect;
+public:
+	static Main_Menu * Ins();
+	void begin();
+	void update(int msPassed);
+	void draw();
+	void input(SDL_Event e);
+	void exit();
+};
+
 
 class Choose_Character : public World_State
 {
 protected:
 	//number of playable chars, player ones postion in list, player twos position in list
 	int num_chars, list_position_1, list_position_2;
-	SDL_Surface * arb_img;
-	SDL_Rect img_rect;
 	//storage list for playable characters
 	vector<Character*> playable_chars;
 	//TODO: add surfaces and rects to handle all the menu and background stuff

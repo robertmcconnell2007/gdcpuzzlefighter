@@ -16,7 +16,7 @@ private:
 	//tells whether the game is running
 	bool gameRunning;
 	//need a pair of characters that can be used 
-	Character current_chars[2];
+	Character *current_chars[2];
 	//need to store the world space to be used
 	//environment  current_envrmt;
 public:
@@ -30,6 +30,5 @@ public:
 	bool changeState(World_State * newState);
 	void update(int msPassed);
 	void draw();
-	void input();
-	
+	void input();	
 };

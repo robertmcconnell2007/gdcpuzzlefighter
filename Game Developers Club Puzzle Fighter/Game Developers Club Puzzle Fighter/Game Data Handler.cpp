@@ -17,7 +17,7 @@ GDH::GDH()
 	//make screen and all that jazz for now will just use some magic numbers
 
 	screen = SDL_SetVideoMode(860, 640, 32, SDL_SWSURFACE);
-	changeState((World_State*)Choose_Character::Ins());
+	changeState((World_State*)Splash_Screen::Ins());
 }
 
 GDH::~GDH()
@@ -45,6 +45,7 @@ void GDH::update(int msPassed)
 
 void GDH::draw()
 {
+	SDL_FillRect(screen, &screen->clip_rect, 0x000000);
 	if(curr_State)
 		curr_State->draw();
 	//if there is any global things to be drawn

@@ -1,0 +1,41 @@
+Game States:
+
+                                                                        
+                                                                         
+                                Splash State                                         
+                                    \                                     
+                                     \>                                    
+                                 Menu State                                         
+                                /    ^  ^  \                                 
+                               /     |  |   \                                
+           Options state<-----/     /   |    \------->Exit State                               
+                                   /    |                                  
+             Choose Char State<---/    /                                 
+                      \               /                    
+                       \             /                          
+                        \>          /                           
+                       Play Game State                                   
+                                                                        
+                                                                        
+                                                                        
+Splash State: Loads a static image (perhaps an animation, but not neccessary),
+displays for a given amount of time, or until key pressed, then moves to 
+Menu State.
+
+Menu State: Allows the player the option of quitting the game, going into the 
+options menu (must decide on what options avaliable), or to the choose char state.
+All this should be done via buttons. State will need either a background screen,
+or a background animation.
+
+Choose Char State: This is where the players pick what characters they are going to 
+play. The game will need to have a background image, and display avaliable characters
+from a character data type list. It will show these chars in the form of a vertical
+list, only displaying 7 at a time. It will need icons for the chars in the list. It 
+will also need to display animations for the currently selected char. The player
+has the option of going back to the main menu, or, once chars have been selected, 
+continuing on to play the game.
+
+Game Play State: This state will need a background image or animation (probably image),
+It will need static images for game area borders. It will need to have areas for the 
+main game play. It will need to have an area in the center of the screen for displaying 
+the character animations. 
