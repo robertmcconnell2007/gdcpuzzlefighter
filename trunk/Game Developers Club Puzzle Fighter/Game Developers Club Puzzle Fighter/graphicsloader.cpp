@@ -194,7 +194,7 @@ void merge(int arr[], int low, int mid, int high, int max)
 	{
 		arr[i] = c[i];
 	}
-	delete c;
+	delete [] c;
 	
 }
 
