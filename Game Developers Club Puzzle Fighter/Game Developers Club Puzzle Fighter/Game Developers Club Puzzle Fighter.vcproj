@@ -40,7 +40,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="SolutionDir\include"
+				AdditionalIncludeDirectories="$(SolutionDir)lib"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -59,7 +59,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="SDL.lib SDLmain.lib SDL_mixer.lib SDL_ttf.lib Ws2_32.lib"
-				AdditionalLibraryDirectories="SolutionDir\lib"
+				AdditionalLibraryDirectories="$(SolutionDir)lib"
 				GenerateDebugInformation="true"
 				SubSystem="2"
 				TargetMachine="1"
