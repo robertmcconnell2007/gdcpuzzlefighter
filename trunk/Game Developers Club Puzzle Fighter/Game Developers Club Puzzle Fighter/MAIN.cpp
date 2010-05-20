@@ -24,6 +24,13 @@ int main(int argc, char ** argv)
 	int msPassed = 0;
 	int gameUpdateClock = 0;
 	int gameDrawClock = 0;
+
+	if ( GDH::Ins()->Initialize() == false )// Initialize the GDH singleton
+	{
+		cout << "GDH::Initialize failed. Aborting... " << endl;
+		return 1;
+	}
+
 	while(GDH::Ins()->isGameRunning())
 	{
 		now = SDL_GetTicks();
