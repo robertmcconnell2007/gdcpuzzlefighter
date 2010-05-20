@@ -1,68 +1,94 @@
 #include "Game Data Handler.h"
 #include "World States\World_States Core.h"
 
+// COTR / DECOTR / OPERATOR
+GDH::GDH()
+{
+	m_poCurr_State = NULL;
+	m_bGameRunning = true;
+}
+
+GDH::~GDH()
+{
+	m_poCurr_State = NULL;
+	//clear away anything we made
+}
+
+
+// MEMBER FUNCTIONS
+// GDH CLASS
+// GDH::Ins()
+//	Access the singleton through this call
 GDH * GDH::Ins()
 {
 	static GDH instance;
 	return & instance;
 }
 
-GDH::GDH()
+// GDH::Initialize
+//	Initializes all non-literals for GDH
+bool GDH::Initialize()
 {
-	curr_State = NULL;
-	gameRunning = true;
-	//temporary, this will be changed later. just testing
-	
 	//TODO: load core information from ini file, i.e. resolution etc
 	//make screen and all that jazz for now will just use some magic numbers
 
-	screen = SDL_SetVideoMode(860, 640, 32, SDL_SWSURFACE);
-	changeState((World_State*)Splash_Screen::Ins());
-}
+	m_psScreen = SDL_SetVideoMode(860, 640, 32, SDL_SWSURFACE);
+	if ( m_psScreen == NULL )
+		return false;
 
-GDH::~GDH()
-{
-	curr_State = NULL;
-	//clear away anything we made
-}
+	changeState(/*(World_State*)*/Splash_Screen::Ins());
 
-bool GDH::changeState(World_State * newState)
-{
-	if(curr_State)
-		curr_State->exit();
-	curr_State = newState;
-	curr_State->begin();
 	return true;
 }
 
-void GDH::update(int msPassed)
-{
-	if(curr_State)
-		curr_State->update(msPassed);
-	//if there are any global updates
-	//they belong here below curr_State->update();
-}
 
-void GDH::draw()
+// SDL GRAPHICS
+void GDH::draw() const
 {
-	SDL_FillRect(screen, &screen->clip_rect, 0x000000);
-	if(curr_State)
-		curr_State->draw();
+	SDL_FillRect(m_psScreen, &m_psScreen->clip_rect, 0x000000);
+	if(m_poCurr_State)
+		m_poCurr_State->draw();
 	//if there is any global things to be drawn
 	//they belong here
 
 	//flip the screen
-	if(SDL_Flip(screen) == -1)
+	if(SDL_Flip(m_psScreen) == -1)
 		return;
+}
+
+// GDH::GDH()
+//	Default COTR initializes all literals
+//	May not initialize non-literals
+bool GDH::changeState(World_State * a_poNewState)
+{
+	if ( a_poNewState == NULL )
+		return false;
+	else
+	{
+		if(m_poCurr_State)
+			m_poCurr_State->exit();
+		m_poCurr_State = a_poNewState;
+		m_poCurr_State->begin();
+		return true;
+	}
 }
 
 void GDH::input()
 {
-	if(curr_State)
-		curr_State->input(e);
+	if(m_poCurr_State)
+		m_poCurr_State->input(m_uE);
 	//if there are any global checks for input, they belong here
-	if(e.type == SDL_QUIT || e.key.keysym.sym == SDLK_RETURN)
+	if(m_uE.type == SDL_QUIT || m_uE.key.keysym.sym == SDLK_RETURN)
 	{
-		gameRunning = false;
+		m_bGameRunning = false;
 	}
 }
+
+void GDH::update(int a_iMSPassed)
+{
+	if(m_poCurr_State)
+		m_poCurr_State->update(a_iMSPassed);
+	//if there are any global updates
+	//they belong here below curr_State->update();
+}
+
