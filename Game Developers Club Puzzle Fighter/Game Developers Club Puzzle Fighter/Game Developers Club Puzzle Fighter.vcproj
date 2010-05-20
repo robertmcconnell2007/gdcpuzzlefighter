@@ -196,6 +196,10 @@
 					RelativePath=".\Character.cpp"
 					>
 				</File>
+				<File
+					RelativePath=".\ScoreAll.cpp"
+					>
+				</File>
 			</Filter>
 		</Filter>
 		<Filter
@@ -232,6 +236,10 @@
 				</File>
 				<File
 					RelativePath=".\Character.h"
+					>
+				</File>
+				<File
+					RelativePath=".\ScoreAll.h"
 					>
 				</File>
 			</Filter>
