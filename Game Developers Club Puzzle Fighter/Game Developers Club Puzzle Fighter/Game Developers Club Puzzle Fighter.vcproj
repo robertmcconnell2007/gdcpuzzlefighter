@@ -181,6 +181,30 @@
 				Name="World States"
 				>
 				<File
+					RelativePath=".\World States\Char_Selection_States.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\World States\Main_Game_State.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\World States\Main_Menu_State.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\World States\Options_State.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\World States\Score_States.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\World States\Splash_Screen_State.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\World States\World_States Core.cpp"
 					>
 				</File>
@@ -222,6 +246,30 @@
 			<Filter
 				Name="World States"
 				>
+				<File
+					RelativePath=".\World States\Char_Selection_States.h"
+					>
+				</File>
+				<File
+					RelativePath=".\World States\Main_Game_State.h"
+					>
+				</File>
+				<File
+					RelativePath=".\World States\Main_Menu_State.h"
+					>
+				</File>
+				<File
+					RelativePath=".\World States\Options_State.h"
+					>
+				</File>
+				<File
+					RelativePath=".\World States\Score_States.h"
+					>
+				</File>
+				<File
+					RelativePath=".\World States\Splash_Screen_State.h"
+					>
+				</File>
 				<File
 					RelativePath=".\World States\World_States Core.h"
 					>
