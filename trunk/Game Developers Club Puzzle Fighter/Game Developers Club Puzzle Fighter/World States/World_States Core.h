@@ -7,6 +7,11 @@ using namespace std;
 
 class GDH;
 #include "..\Game Data Handler.h"
+
+//#include's for other state.h files at bottom!!!!
+
+
+
 /*
 copy paste this and change [name] to create a new state
 all states have six basic funtions. ins is how you access the singleton (i.e. WorldState::Ins()->something)
@@ -43,77 +48,15 @@ public:
 	~World_State();
 };
 
-class Splash_Screen : public World_State
-{
-protected:
-	SDL_Surface * splashSurface;
-	SDL_Rect SSRect;
-public:
-	static Splash_Screen * Ins();
-	void begin();
-	void update(int msPassed);
-	void draw();
-	void input(SDL_Event e);
-	void exit();
-};
-
-class Main_Menu : public World_State
-{
-protected:
-	SDL_Surface * backgroundSurface;
-	SDL_Surface * menuButtons;
-	SDL_Rect BGSRect;
-	SDL_Rect optionsRect;
-	SDL_Rect quitRect;
-	SDL_Rect playRect;
-public:
-	static Main_Menu * Ins();
-	void begin();
-	void update(int msPassed);
-	void draw();
-	void input(SDL_Event e);
-	void exit();
-};
 
 
-class Choose_Character : public World_State
-{
-protected:
-	//number of playable chars, player ones postion in list, player twos position in list
-	int num_chars, list_position_1, list_position_2;
-	//storage list for playable characters
-	vector<Character*> playable_chars;
-	//TODO: add surfaces and rects to handle all the menu and background stuff
-public:
-	//parent functions
-	static Choose_Character* Ins();
-	void begin();
-	void update(int msPassed);
-	void draw();
-	void input(SDL_Event e);
-	void exit();
-	//personal functions
-	//this function will pull in the list of playable characters
-	void load_playable_chars();
-	void deload_playable_chars();
-};
+#include "Main_Menu_State.h"
+#include "Char_Selection_States.h"
+#include "Main_Game_State.h"
+#include "Main_Menu_State.h"
+#include "Options_State.h"
+#include "Score_States.h"
+#include "Splash_Screen_State.h"
 
 
-//this is the main function, that will handle all the gameplay stuff
-//this is going to be the most complex by far
-class GamePlay : public World_State
-{
-protected:
-	//these hold pointers to the two characters to be played this round 
-	Character *player1, *player2;
-	//TODO: add sdl_surfaces and rects for the background and border art, etc
-	//TODO: add custom classes to handle the tetris games
-	//TODO: add animation variables to hold whatever animations the design team comes up with
-public:
-	static GamePlay * Ins();
-	void begin();
-	void update(int msPassed);
-	void draw();
-	void input(SDL_Event e);
-	void exit();
-};
+

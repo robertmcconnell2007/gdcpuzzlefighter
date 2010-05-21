@@ -1,6 +1,7 @@
 #include "Game Data Handler.h"
 #include "World States\World_States Core.h"
 
+
 // COTR / DECOTR / OPERATOR
 GDH::GDH()
 {
@@ -36,7 +37,7 @@ bool GDH::Initialize()
 	if ( m_psScreen == NULL )
 		return false;
 
-	changeState(/*(World_State*)*/Splash_Screen::Ins());
+	GDH::Ins()->changeState(/*(World_State*)*/Splash_Screen::Ins());
 
 	return true;
 }
