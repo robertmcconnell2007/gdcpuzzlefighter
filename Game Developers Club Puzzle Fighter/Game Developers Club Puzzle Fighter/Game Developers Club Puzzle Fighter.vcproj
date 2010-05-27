@@ -213,7 +213,15 @@
 				Name="classes"
 				>
 				<File
+					RelativePath=".\AI\aiClass.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\Animation.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\AI\behaviorClass.cpp"
 					>
 				</File>
 				<File
@@ -279,7 +287,15 @@
 				Name="classes"
 				>
 				<File
+					RelativePath=".\AI\aiClass.h"
+					>
+				</File>
+				<File
 					RelativePath=".\Animation.h"
+					>
+				</File>
+				<File
+					RelativePath=".\AI\behaviorClass.h"
 					>
 				</File>
 				<File
