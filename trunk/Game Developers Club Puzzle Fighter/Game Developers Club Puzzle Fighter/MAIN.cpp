@@ -5,6 +5,7 @@
 //#include "SDL_ttf.h"	// true-type font library for SDL
 #include "Game Data Handler.h"
 #include "World States/World_States Core.h"
+#include "AI/aiClass.h"
 using namespace std;
 
 
