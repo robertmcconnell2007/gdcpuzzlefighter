@@ -61,8 +61,10 @@
 #pragma once
 
 // All includes will be put here in alphabetical order
+// include class for a High score chart to be created "ScoreAll.h"
 //#include "World States\World_States Core.h"
 #include "Character.h"
+#include "ScoreAll.h"
 
 // All defines will be put here in alphabetical order
 
