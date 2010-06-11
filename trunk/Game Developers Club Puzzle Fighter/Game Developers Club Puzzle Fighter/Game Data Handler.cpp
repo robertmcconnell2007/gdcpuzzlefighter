@@ -83,6 +83,10 @@ void GDH::input()
 	{
 		m_bGameRunning = false;
 	}
+	if(m_uE.key.keysym.sym == SDLK_SPACE) //TODO: delete this later
+	{
+		GDH::Ins()->changeState(GamePlay::Ins());
+	}
 }
 
 void GDH::update(int a_iMSPassed)
