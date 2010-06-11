@@ -63,6 +63,16 @@
 // All includes will be put here in alphabetical order
 // include class for a High score chart to be created "ScoreAll.h"
 //#include "World States\World_States Core.h"
+
+enum pieceTypes
+{
+	eRedPiece		= 0x0010,
+	eBluePiece		= 0x0020,
+	eGreenPiece		= 0x0040,
+	eYellowPiece	= 0x0080,
+	eBombPiece		= 0x0100,
+	eCounterPiece	= 0x0200,
+};
 #include "Character.h"
 #include "ScoreAll.h"
 

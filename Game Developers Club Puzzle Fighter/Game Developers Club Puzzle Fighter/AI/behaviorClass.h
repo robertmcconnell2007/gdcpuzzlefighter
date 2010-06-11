@@ -1,5 +1,7 @@
 #pragma once
 
+#define PLAYER 0
+//TODO: 0 is player 1, 1 is player 2
 struct orientation  // this struct contains the orientation of the object
 {
 	int x;			// x location
@@ -16,6 +18,7 @@ protected:
 public:
 	behaviorParent() { finished = false; iterator = 0; }
 	bool isDone() { return finished; }	// will return true when the desired position has been found
+	void notDone() { finished = false; } // run this when a new desired position needs to be found
 	orientation getLoc() { return pos; }	// returns the position and orientation of the piece as a struct. x, y, and r(otation)
 	virtual void findSpot() = 0;	// the function to find the desired position of the piece based on the behavior
 };
