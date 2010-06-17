@@ -1,3 +1,17 @@
+// Game Data Handler.cpp
+//
+// by GDC club
+//
+// file overseen by
+// Brian "The Razor" Schick, GDH Gatekeeper
+//
+// Contribution guidelines IMPORTANT READ
+//  READ the contribution guidelines in the "Game Data Handler.h" file
+//		before contributing to the GDH.
+//
+// See the bottom of this file for additional notes.
+
+
 #include "Game Data Handler.h"
 #include "World States\World_States Core.h"
 
@@ -66,7 +80,7 @@ bool GDH::changeState(World_State * a_poNewState)
 		return false;
 	else
 	{
-		if(m_poCurr_State)
+		if( m_poCurr_State )
 			m_poCurr_State->exit();
 		m_poCurr_State = a_poNewState;
 		m_poCurr_State->begin();
@@ -97,3 +111,9 @@ void GDH::update(int a_iMSPassed)
 	//they belong here below curr_State->update();
 }
 
+// Notes:
+//
+// Notes for the newbies:
+//	if ( pointervariablename )
+//		is the same as
+//  if ( pointervariablename != NULL ) -- bms.
