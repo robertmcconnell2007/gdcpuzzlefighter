@@ -4,7 +4,7 @@
 #include "..\include\SDL.h"
 
 //---------- if anyone can figure out why the ttf isn't loading properly, fix it.
-//#include "SDL_ttf.h"
+#include "SDL_ttf.h"
 using namespace std;
 
 SDL_Surface *load_my_image( string filename );

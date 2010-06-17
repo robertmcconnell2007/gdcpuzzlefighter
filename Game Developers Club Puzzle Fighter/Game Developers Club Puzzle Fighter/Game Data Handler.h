@@ -64,6 +64,16 @@
 // include class for a High score chart to be created "ScoreAll.h"
 //#include "World States\World_States Core.h"
 
+#include "Character.h"
+#include "ScoreAll.h"
+
+// All defines will be put here in alphabetical order
+
+
+using namespace std;
+
+
+// Please describe the purpose of this enum - Razor.
 enum pieceTypes
 {
 	eRedPiece		= 0x0010,
@@ -73,13 +83,6 @@ enum pieceTypes
 	eBombPiece		= 0x0100,
 	eCounterPiece	= 0x0200,
 };
-#include "Character.h"
-#include "ScoreAll.h"
-
-// All defines will be put here in alphabetical order
-
-
-using namespace std;
 
 class World_State;
 //GDH -> Game Data Handler
@@ -142,3 +145,5 @@ public:
 // Notes:
 //
 // 5/19/2010 - Added comments describing contribution guidelines - bms.
+// 6/16/2010 - Moved 'pieceTypes' enum below 'using namespace std;' statement.
+//			 - Asked for description comment for enum. - bms.
