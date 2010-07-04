@@ -16,18 +16,66 @@ void GamePlay::begin()
 	boards[0]->init();
 	boards[1] = new gameBoard;
 	boards[1]->init();
+	pieceSize.h = 20;
+	pieceSize.w = 20;
+	p1Flag = eNoInput;
+	p2Flag = eNoInput;
 }
 
 void GamePlay::update(int msPassed)
 {
+	boards[0]->handleInput(p1Flag);
+	boards[1]->handleInput(p2Flag);
+	p1Flag = eNoInput;
+	p2Flag = eNoInput;
+	boards[0]->updateBoard(msPassed);
+	boards[1]->updateBoard(msPassed);
 }
 
 void GamePlay::draw()
 {
+	boards[0]->drawBoard(0,0, pieceSize);
+	boards[1]->drawBoard((pieceSize.w * (BOARDWIDTH + 4)),0, pieceSize);
 }
 
 void GamePlay::input(SDL_Event e)
 {
+	if(e.type == SDL_KEYDOWN)
+	{
+		switch(e.key.keysym.sym)
+		{
+		case SDLK_s:
+			p1Flag = eInputDown;
+			break;
+		case SDLK_d:
+			p1Flag = eInputRight;
+			break;
+		case SDLK_a:
+			p1Flag = eInputLeft;
+			break;
+		case SDLK_q:
+			p1Flag = eInputRotateCC;
+			break;
+		case SDLK_e:
+			p1Flag = eInputRotateC;
+			break;
+		case SDLK_DOWN:
+			p2Flag = eInputDown;
+			break;
+		case SDLK_RIGHT:
+			p2Flag = eInputRight;
+			break;
+		case SDLK_LEFT:
+			p2Flag = eInputLeft;
+			break;
+		case SDLK_1:
+			p2Flag = eInputRotateCC;
+			break;
+		case SDLK_2:
+			p2Flag = eInputRotateC;
+			break;
+		}
+	}
 }
 
 void GamePlay::exit()
@@ -39,8 +87,6 @@ void GamePlay::exit()
 }
 
 //omg all the functions for the board classes etc
-
-
 
 void pieceClass::resetPiece(int a_baseX, int a_baseY)
 {
@@ -77,10 +123,25 @@ void pieceClass::resetPiece(int a_baseX, int a_baseY)
 		SC = eYellow;
 		break;
 	}
-	if((rand() & 127) < 10)
+	if((rand() & 127) < 15)
 		CC |= eBomb;
-	if((rand() & 127) < 10)
+	if((rand() & 127) < 15)
 		SC |= eBomb;
+
+	if(testerInt < 1)
+	{
+		CC = eBlue;
+		SC = eBlue;
+	}
+	else if(testerInt < 6)
+	{
+		CC = eRed;
+		SC = eRed;
+	}
+	else if(testerInt < 10)
+	{
+	}
+	testerInt++;
 }
 
 void pieceClass::movePiece(int a_dir)
@@ -135,7 +196,7 @@ int blockList::blockPartOf(int a_x, int a_y)
 	return NORESULT;
 }
 
-void blockList::killBlock(int a_index)
+void blockList::removeBlock(int a_index)
 {
 	blockListNode * walker = m_first;
 	blockListNode * previous = m_first;
@@ -370,13 +431,14 @@ void gameBoard::init()
 			board[i] = new int[m_w];
 		for(int r = 0; r < m_h; ++r)
 		{
-			for(int c = 0; c < m_w; ++r)
+			for(int c = 0; c < m_w; ++c)
 				board[r][c] = eBlack;
 		}
 	}
 	if(!piece)
 	{
 		piece = new pieceClass;
+		piece->resetPiece((m_w / 2), 1);
 	}
 	if(!blocks)
 	{
@@ -414,11 +476,12 @@ void gameBoard::cleanUp()
 
 void gameBoard::updateBoard(int msPassed)
 {
+	movePieceTimer += msPassed;
 	if(resolvingBoard)
 	{
 		if(resolveBoard())
 		{
-			piece->resetPiece((m_w / 2) + 1, 0);
+			piece->resetPiece((m_w / 2), 1);
 			resetBlocks();
 			resolvingBoard = resolveBombs();
 			if(resolvingBoard)
@@ -427,7 +490,11 @@ void gameBoard::updateBoard(int msPassed)
 	}
 	else if(checkNoCollision(eDown))
 	{
-		piece->movePiece(eDown);
+		if(movePieceTimer >= PIECEDROPTIME)
+		{
+			movePieceTimer = 0;
+			piece->movePiece(eDown);
+		}
 	}
 	else
 	{
@@ -438,9 +505,172 @@ void gameBoard::updateBoard(int msPassed)
 	}
 }
 
-void gameBoard::drawBoard(int a_x, int a_y)
+void gameBoard::drawBoard(int a_x, int a_y, SDL_Rect pieceSize)
 {
+	SDL_Rect tempRect;
+	Uint32 color = 0;
+	tempRect.h = pieceSize.h;
+	tempRect.w = pieceSize.w;
+	for(int r = 0; r < m_h; ++r)
+	{
+		tempRect.y = (r * tempRect.h) + a_y;
+		for(int c = 0; c < m_w; ++c)
+		{
+			tempRect.x = (c * tempRect.w) + a_x;
+			switch(board[r][c] & ~eBomb)
+			{
+			case eBlue:
+				color = 0x00000088;
+				break;
+			case eGreen:
+				color = 0x00008800;
+				break;
+			case eRed:
+				color = 0x00880000;
+				break;
+			case eYellow:
+				color = 0x00888800;
+				break;
+			case eBlack:
+				color = 0x00000000;
+				break;
+			}
+			if(board[r][c] & eBomb)
+			{
+				switch(board[r][c] & ~eBomb)
+				{
+				case eBlue:
+					color = 0x000000CC;
+					break;
+				case eGreen:
+					color = 0x0000CC00;
+					break;
+				case eRed:
+					color = 0x00CC0000;
+					break;
+				case eYellow:
+					color = 0x00CCCC00;
+					break;
+				case eBlack:
+					color = 0x00000000;
+					break;
+				}
+			}
+			int bpo = blocks->blockPartOf(c, r);
+			if(bpo != -1)
+			{
+				switch(blocks->getBlock(bpo)->m_block->m_color & ~eBomb)
+				{
+				case eBlue:
+					color = 0x00000044;
+					break;
+				case eGreen:
+					color = 0x00004400;
+					break;
+				case eRed:
+					color = 0x00440000;
+					break;
+				case eYellow:
+					color = 0x00444400;
+					break;
+				case eBlack:
+					color = 0x00000000;
+					break;
+				}
+			}
+			SDL_FillRect(GDH::Ins()->getScreen(), &tempRect, color);
+		}
+	}
+	if(!resolvingBoard)
+	{
+		tempRect.x = (piece->getX() * tempRect.w) + a_x;
+		tempRect.y = (piece->getY() * tempRect.h) + a_y;
+		switch(piece->getCC() & ~eBomb)
+		{
+		case eBlue:
+			color = 0x00000088;
+			break;
+		case eGreen:
+			color = 0x00008800;
+			break;
+		case eRed:
+			color = 0x00880000;
+			break;
+		case eYellow:
+			color = 0x00888800;
+			break;
+		case eBlack:
+			color = 0x00000000;
+			break;
+		}
+		if(piece->getCC() & eBomb)
+		{
+			switch(piece->getCC() & ~eBomb)
+			{
+			case eBlue:
+				color = 0x000000CC;
+				break;
+			case eGreen:
+				color = 0x0000CC00;
+				break;
+			case eRed:
+				color = 0x00CC0000;
+				break;
+			case eYellow:
+				color = 0x00CCCC00;
+				break;
+			case eBlack:
+				color = 0x00000000;
+				break;
+			}
+		}
+		SDL_FillRect(GDH::Ins()->getScreen(), &tempRect, color);
+
+		tempRect.x = ((piece->getX() + xCtr[piece->getD()]) * tempRect.w) + a_x;
+		tempRect.y = ((piece->getY() + yCtr[piece->getD()]) * tempRect.h) + a_y;
+		switch(piece->getSC() & ~eBomb)
+		{
+		case eBlue:
+			color = 0x00000088;
+			break;
+		case eGreen:
+			color = 0x00008800;
+			break;
+		case eRed:
+			color = 0x00880000;
+			break;
+		case eYellow:
+			color = 0x00888800;
+			break;
+		case eBlack:
+			color = 0x00000000;
+			break;
+		}
+		if(piece->getSC() & eBomb)
+		{
+			switch(piece->getSC() & ~eBomb)
+			{
+			case eBlue:
+				color = 0x000000CC;
+				break;
+			case eGreen:
+				color = 0x0000CC00;
+				break;
+			case eRed:
+				color = 0x00CC0000;
+				break;
+			case eYellow:
+				color = 0x00CCCC00;
+				break;
+			case eBlack:
+				color = 0x00000000;
+				break;
+			}
+		}
+		SDL_FillRect(GDH::Ins()->getScreen(), &tempRect, color);
+	}
 }
+
 
 void gameBoard::handleInput(int a_flag)
 {
@@ -460,6 +690,16 @@ void gameBoard::handleInput(int a_flag)
 		break;
 	case eInputSpecial:
 		break;
+	case eInputRotateCC:
+		piece->rotateCounterClockwise();
+		if(!checkNoCollision(eNone))
+			piece->rotateClockwise();
+		break;
+	case eInputRotateC:
+		piece->rotateClockwise();
+		if(!checkNoCollision(eNone))
+			piece->rotateCounterClockwise();
+		break;
 	}
 }
 
@@ -467,7 +707,7 @@ bool gameBoard::checkNoCollision(int a_dir)
 {
 	//if you're trying to go off the map, return false
 	if( (piece->getX() + xCtr[a_dir] <  0	|| piece->getX() + xCtr[piece->getD()] + xCtr[a_dir] <  0) ||
-		(piece->getX() + xCtr[a_dir] >- m_w || piece->getX() + xCtr[piece->getD()] + xCtr[a_dir] >= m_w) ||
+		(piece->getX() + xCtr[a_dir] >= m_w || piece->getX() + xCtr[piece->getD()] + xCtr[a_dir] >= m_w) ||
 		(piece->getY() + yCtr[a_dir] <  0	|| piece->getY() + yCtr[piece->getD()] + yCtr[a_dir] <  0) ||
 		(piece->getY() + yCtr[a_dir] >= m_h || piece->getY() + yCtr[piece->getD()] + yCtr[a_dir] >= m_h))
 		return false;
@@ -481,8 +721,12 @@ bool gameBoard::checkNoCollision(int a_dir)
 
 void gameBoard::setPieceToBackground()
 {
-	board[piece->getY()][piece->getX()] = piece->getCC();
-	board[piece->getY() + yCtr[piece->getD()]][piece->getX() + xCtr[piece->getD()]] = piece->getSC();
+	int x1 = piece->getX();
+	int y1 = piece->getY();
+	int x2 = piece->getX() + xCtr[piece->getD()];
+	int y2 = piece->getY() + yCtr[piece->getD()];
+	board[y1][x1] = piece->getCC();
+	board[y2][x2] = piece->getSC();
 }
 
 bool gameBoard::resolveBoard()
@@ -505,7 +749,7 @@ bool gameBoard::resolveBoard()
 				if(clearToDrop)
 				{
 					settled = false;
-					blocks->killBlock(bpo);
+					blocks->removeBlock(bpo);
 				}
 			}
 			else if(board[r][c] != eBlack && board[r + 1][c] == eBlack)
@@ -528,7 +772,7 @@ bool gameBoard::resolveBombs()
 	{
 		for(int c = 0; c < m_w; ++c)
 		{
-			if(board[r][c] &= eBomb)
+			if(board[r][c] & eBomb)
 			{
 				//check if there is the base color w/o the bomb around the piece
 				foundSomething = isColorAround(board[r][c] & ~eBomb, c, r);
@@ -543,18 +787,18 @@ bool gameBoard::resolveBombs()
 void gameBoard::explodeColor(int a_color, int a_x, int a_y)
 {
 	board[a_y][a_x] = eBlack;
-	if(timers->timerIn(a_x, a_y))
+	if(timers->timerIn(a_x, a_y) != NORESULT)
 	{
 		timers->removeTimerOn(a_x, a_y);
 		return;
 	}
-	if(a_x > 0			&& board[a_y][a_x - 1] == a_color)
+	if(a_x > 0 && board[a_y][a_x - 1] == a_color)
 		explodeColor(a_color, a_x - 1, a_y);
-	if(a_x < m_w - 1	&& board[a_y][a_x + 1] == a_color)
+	if(a_x < m_w - 1 && board[a_y][a_x + 1] == a_color)
 		explodeColor(a_color, a_x + 1, a_y);
-	if(a_y > 0			&& board[a_y - 1][a_x] == a_color)
+	if(a_y > 0 && board[a_y - 1][a_x] == a_color)
 		explodeColor(a_color, a_x, a_y - 1);
-	if(a_x < m_h - 1	&& board[a_y + 1][a_x] == a_color)
+	if(a_y < m_h - 1 && board[a_y + 1][a_x] == a_color)
 		explodeColor(a_color, a_x, a_y + 1);
 }
 
@@ -576,7 +820,9 @@ void gameBoard::resetBlocks()
 		for(int c = 0; c < m_w - 1; ++c)
 		{
 			//huge, gross, disgusting if statement to check if a viable block can be made
-			if( !(board[r][c] & eBomb) &&
+			if( board[r][c] != eBlack &&
+				
+				!(board[r][c] & eBomb) &&
 				timers->timerIn(c, r) == NORESULT &&
 				blocks->blockPartOf(c, r) == NORESULT &&
 
