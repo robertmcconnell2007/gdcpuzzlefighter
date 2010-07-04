@@ -50,10 +50,10 @@ private:
 	int x, y, d;
 	//center color and side color
 	int CC, SC;
-	int testerInt;
+	//int testerInt;
 public:
 	pieceClass(): x(0), y(0), d(eNone), 
-		CC(0), SC(0), testerInt(0)
+		CC(0), SC(0)//, testerInt(0)
 	{}
 	void resetPiece(int a_baseX, int a_baseY);
 	void movePiece(int a_dir);
@@ -65,6 +65,12 @@ public:
 	inline int getD() {return d;}
 	inline int getCC() {return CC;}
 	inline int getSC() {return SC;}
+	bool operator==(pieceClass other)
+	{
+		if(x == other.getX() && y == other.getY() && d == other.getD())
+			return true;
+		return false;
+	}
 };
 
 struct area_block
@@ -150,6 +156,7 @@ public:
 	void setPieceToBackground();
 	bool resolveBoard();
 	bool resolveBombs();
+	pieceClass* getPiece(){return piece;}
 	void explodeColor(int a_color, int a_x, int a_y);
 	bool isColorAround(int a_color, int a_x, int a_y);
 	void resetBlocks();
@@ -172,6 +179,7 @@ public:
 	void draw();
 	void input(SDL_Event e);
 	void exit();
+	gameBoard* getBoard(int i) {return boards[i];}
 };
 
 ////this is the main function, that will handle all the gameplay stuff

@@ -1,4 +1,5 @@
 #include "Main_Game_State.h"
+#include "../AI/aiClass.h"
 
 ////////////////////////////////////////////////////
 /////////////Game Play State////////////////////////
@@ -20,6 +21,7 @@ void GamePlay::begin()
 	pieceSize.w = 20;
 	p1Flag = eNoInput;
 	p2Flag = eNoInput;
+	AI::Ins()->setNewAI(1, eBasicBehavior);
 }
 
 void GamePlay::update(int msPassed)
@@ -30,6 +32,7 @@ void GamePlay::update(int msPassed)
 	p2Flag = eNoInput;
 	boards[0]->updateBoard(msPassed);
 	boards[1]->updateBoard(msPassed);
+	AI::Ins()->update();
 }
 
 void GamePlay::draw()
@@ -76,6 +79,14 @@ void GamePlay::input(SDL_Event e)
 			break;
 		}
 	}
+	//if (playing against computer)
+	//{
+		p2Flag = eNoInput;
+		if(AI::Ins()->isReady())
+		{
+			p2Flag = AI::Ins()->getMove();
+		}
+	//}
 }
 
 void GamePlay::exit()
@@ -128,20 +139,20 @@ void pieceClass::resetPiece(int a_baseX, int a_baseY)
 	if((rand() & 127) < 15)
 		SC |= eBomb;
 
-	if(testerInt < 1)
-	{
-		CC = eBlue;
-		SC = eBlue;
-	}
-	else if(testerInt < 6)
-	{
-		CC = eRed;
-		SC = eRed;
-	}
-	else if(testerInt < 10)
-	{
-	}
-	testerInt++;
+	//if(testerInt < 1)
+	//{
+	//	CC = eBlue;
+	//	SC = eBlue;
+	//}
+	//else if(testerInt < 6)
+	//{
+	//	CC = eRed;
+	//	SC = eRed;
+	//}
+	//else if(testerInt < 10)
+	//{
+	//}
+	//testerInt++;
 }
 
 void pieceClass::movePiece(int a_dir)

@@ -11,17 +11,18 @@ enum eBehaviors // format for enums is e followd by the name of your function ex
 class AI
 {
 private:
-	AI();
+	AI(): then(0) {}
 	~AI();
 	behaviorParent *behavior;
 	bool moveReady;
 	int move;
 	int difficulty;
 	int delay;
-	int then;
+	double then;
+	pieceClass currentPiece;
 public:
 	bool isReady() { return moveReady; }
-	int getMove() { moveReady = false; return move; }
+	int getMove();
 	void piecePlaced() { behavior->notDone(); } //TODO: run when piece has been placed and after counter pieces have been dropped
 	void setNewAI(int DIFFICULTY, int BEHAVIOR);
 	void update();
