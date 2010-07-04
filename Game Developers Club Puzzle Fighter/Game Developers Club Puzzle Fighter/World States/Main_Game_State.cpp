@@ -171,7 +171,7 @@ void area_block::addpoint(int a_x, int a_y)
 		m_X2 = a_x;
 	if(m_Y1 < 0 || a_y < m_Y1)
 		m_Y1 = a_y;
-	if(m_Y2 < 0 || a_y < m_Y2)
+	if(m_Y2 < 0 || a_y > m_Y2)
 		m_Y2 = a_y;
 }
 
@@ -860,15 +860,16 @@ void gameBoard::resetBlocks()
 					}
 				}
 				done = false;
-				for(maxY; maxY < m_h - 1 && !done; ++maxY)
+				for(int nr = r; nr < m_h - 1 && !done; ++nr)
 				{
 					for(int nc = c; nc <= maxX && !done; ++nc)
 					{
-						if(board[maxY + 1][nc] != board[r][c] || blocks->blockPartOf(nc, maxY + 1) != NORESULT ||timers->timerIn(nc, maxY + 1) != NORESULT)
+						if(board[nr + 1][nc] != board[r][c] || blocks->blockPartOf(nc, nr + 1) != NORESULT ||timers->timerIn(nc, nr + 1) != NORESULT)
 						{
 							done = true;
-							if(nc != maxX || blocks->blockPartOf(nc, maxY + 1) != NORESULT || timers->timerIn(nc, maxY + 1) != NORESULT)
-								maxY--;
+							maxY = nr - 1;
+							//if(nc != maxX || blocks->blockPartOf(nc, maxY + 1) != NORESULT || timers->timerIn(nc, maxY + 1) != NORESULT)
+							//	maxY--;
 						}
 					}
 				}
