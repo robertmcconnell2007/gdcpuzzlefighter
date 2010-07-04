@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <ctime>
 #include "..\include\SDL.h"
 //TODO: true type font .h isn't loading properly, fix it
 //#include "SDL_ttf.h"	// true-type font library for SDL
@@ -11,6 +12,7 @@ using namespace std;
 
 int main(int argc, char ** argv)
 {
+	srand((unsigned)time(0));
 	if(SDL_Init( SDL_INIT_EVERYTHING) == -1)
 	{
 		return 1;
