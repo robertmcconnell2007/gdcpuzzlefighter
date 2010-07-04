@@ -4,14 +4,17 @@
 #define BOARDHEIGHT		14
 #define BOARDWIDTH		6
 #define NORESULT        -1
-
+#define PIECEDROPTIME   800
 
 enum inputFlags
 {
+	eNoInput			= 0x0000,
 	eInputRight			= 0x0001,
 	eInputDown			= 0x0002,
 	eInputLeft			= 0x0004,
 	eInputSpecial		= 0x0008,
+	eInputRotateC		= 0x0010,
+	eInputRotateCC		= 0x0020,
 };
 
 enum colorFlags
@@ -45,9 +48,10 @@ private:
 	int x, y, d;
 	//center color and side color
 	int CC, SC;
+	int testerInt;
 public:
-	pieceClass(): x(0), y(0), d(0), 
-		CC(0), SC(0)
+	pieceClass(): x(0), y(0), d(eNone), 
+		CC(0), SC(0), testerInt(0)
 	{}
 	void resetPiece(int a_baseX, int a_baseY);
 	void movePiece(int a_dir);
@@ -89,7 +93,7 @@ public:
 	blockList(): m_first(NULL), m_last(NULL), m_size(0) {}
 	~blockList() {killAllBlocks();}
 	int blockPartOf(int a_x, int a_y);
-	void killBlock(int a_index);
+	void removeBlock(int a_index);
 	blockListNode * getBlock(int a_index);
 	void killAllBlocks();
 	void addBlock(area_block * newBlock);
@@ -138,7 +142,7 @@ public:
 	void init();
 	void cleanUp();
 	void updateBoard(int msPassed);
-	void drawBoard(int a_x, int a_y);
+	void drawBoard(int a_x, int a_y, SDL_Rect pieceSize);
 	void handleInput(int flag);
 	bool checkNoCollision(int a_dir);
 	void setPieceToBackground();
@@ -157,6 +161,7 @@ protected:
 	Character * player[2];
 	SDL_Rect pieceSize;
 	gameBoard * boards[2];
+	int p1Flag, p2Flag;
 	int flags, downflags, oldflags;
 public:
 	static GamePlay * Ins();
