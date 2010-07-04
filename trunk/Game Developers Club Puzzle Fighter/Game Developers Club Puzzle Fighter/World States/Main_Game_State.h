@@ -1,5 +1,7 @@
 #pragma once
 #include "World_States Core.h"
+#include <iostream>
+using namespace std;
 
 #define BOARDHEIGHT		14
 #define BOARDWIDTH		6
