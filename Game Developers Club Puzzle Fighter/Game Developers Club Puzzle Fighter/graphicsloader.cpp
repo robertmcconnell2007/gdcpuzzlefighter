@@ -79,7 +79,10 @@ void printStrings(string text, SDL_Rect destRect, SDL_Surface *screen, SDL_Color
 	height = (vLines.size() - 1) * lineSkip + height;
 	SDL_Surface * sTemp = NULL;
 	SDL_Rect tempStrRect;
-	for(int i = 0; i < vLines.size(); ++i)
+	// warning C4018:
+	// for(int i = 0; i < vLines.size(); ++i)
+	// instead use
+	for(int i = 0; i != vLines.size(); ++i)
 	{
 		sTemp = TTF_RenderText_Solid(font, vLines[i].c_str(), text_color);
 		tempStrRect.x = destRect.x;
