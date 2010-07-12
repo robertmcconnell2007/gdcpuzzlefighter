@@ -19,11 +19,12 @@ private:
 	int difficulty;
 	int delay;
 	double then;
-	pieceClass currentPiece;
 public:
 	bool isReady() { return moveReady; }
+	bool isBready() { return behavior->isDone(); }
 	int getMove();
 	void piecePlaced() { behavior->notDone(); } //TODO: run when piece has been placed and after counter pieces have been dropped
+	void newPiece();
 	void setNewAI(int DIFFICULTY, int BEHAVIOR);
 	void update();
 	static AI* Ins()

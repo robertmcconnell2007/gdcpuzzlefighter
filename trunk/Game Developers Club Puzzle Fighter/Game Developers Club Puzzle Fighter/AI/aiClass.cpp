@@ -4,7 +4,7 @@ void AI::setNewAI(int DIFFICULTY, int BEHAVIOR)
 {
 	int b = BEHAVIOR;
 	then = SDL_GetTicks();
-	difficulty = DIFFICULTY * 1000;
+	difficulty = DIFFICULTY * 250;
 	if(behavior != 0)
 	{
 		delete behavior;
@@ -23,51 +23,50 @@ int AI::getMove()
 }
 void AI::update()
 {
-	if(!(currentPiece == *GamePlay::Ins()->getBoard(1)->getPiece()))
-	{
-		currentPiece = *GamePlay::Ins()->getBoard(1)->getPiece();
-		piecePlaced();
-	}
 	if(!behavior->isDone())
 	{
 		behavior->findSpot();
 	}
 	else
 	{
+		if(GamePlay::Ins()->getBoard(1)->getPiece()->isNew())
+			piecePlaced();
 		double now = SDL_GetTicks();
 		double timePassed = now-then;
-		if(timePassed > delay)
+		if(timePassed > difficulty)
 		{
 			then = now;
 			// TODO: put in algolrithm to move piece to desired position and rotation
 			int x = GamePlay::Ins()->getBoard(1)->getPiece()->getX();
-			if(behavior->getLoc()->getD() != currentPiece.getD())
+			if(behavior->getLoc()->getD() != GamePlay::Ins()->getBoard(1)->getPiece()->getD())
 			{
-				if(currentPiece.getD() - behavior->getLoc()->getD() > (behavior->getLoc()->getD()+4) - (currentPiece.getD()+4))
-				{
-					moveReady = true;
-					move = eInputRotateC;
-				}
-				else
+				int d = GamePlay::Ins()->getBoard(1)->getPiece()->getD() - behavior->getLoc()->getD();
+				d = abs(d);
+				if(d > 3)
 				{
 					moveReady = true;
 					move = eInputRotateCC;
 				}
+				else
+				{
+					moveReady = true;
+					move = eInputRotateC;
+				}
 			}
-			if(behavior->getLoc()->getX() > x)
+			else if(behavior->getLoc()->getX() > x)
 			{
 				moveReady = true;
-				move |= eInputRight;
+				move = eInputRight;
 			}
 			else if(behavior->getLoc()->getX() < x)
 			{
 				moveReady = true;
-				move |= eInputLeft;
+				move = eInputLeft;
 			}
 			else
 			{
 				moveReady = true;
-				move |= eInputDown;
+				move = eInputDown;
 			}
 		}
 	}
