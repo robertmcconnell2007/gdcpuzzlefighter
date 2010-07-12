@@ -13,6 +13,7 @@ GamePlay* GamePlay::Ins()
 
 void GamePlay::begin()
 {
+	AI::Ins()->setNewAI(1, eBasicBehavior);
 	boards[0] = new gameBoard;
 	boards[0]->init();
 	boards[1] = new gameBoard;
@@ -21,7 +22,6 @@ void GamePlay::begin()
 	pieceSize.w = 20;
 	p1Flag = eNoInput;
 	p2Flag = eNoInput;
-	AI::Ins()->setNewAI(1, eBasicBehavior);
 }
 
 void GamePlay::update(int msPassed)
@@ -33,6 +33,14 @@ void GamePlay::update(int msPassed)
 	boards[0]->updateBoard(msPassed);
 	boards[1]->updateBoard(msPassed);
 	AI::Ins()->update();
+	//if (playing against computer)
+	//{
+		p2Flag = eNoInput;
+		if(AI::Ins()->isReady())
+		{
+			p2Flag = AI::Ins()->getMove();
+		}
+	//}
 }
 
 void GamePlay::draw()
@@ -79,14 +87,6 @@ void GamePlay::input(SDL_Event e)
 			break;
 		}
 	}
-	//if (playing against computer)
-	//{
-		p2Flag = eNoInput;
-		if(AI::Ins()->isReady())
-		{
-			p2Flag = AI::Ins()->getMove();
-		}
-	//}
 }
 
 void GamePlay::exit()
@@ -101,6 +101,7 @@ void GamePlay::exit()
 
 void pieceClass::resetPiece(int a_baseX, int a_baseY)
 {
+	newPiece = true;
 	x = a_baseX;
 	y = a_baseY;
 	d = eLeft;
@@ -889,6 +890,15 @@ void gameBoard::resetBlocks()
 			}
 		}
 	}
+}
+bool pieceClass::isNew()
+{
+	if(newPiece)
+	{
+		newPiece = false;
+		return true;
+	}
+	return false;
 }
 
 ////attempt one

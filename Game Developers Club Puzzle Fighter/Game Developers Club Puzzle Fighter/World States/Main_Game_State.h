@@ -50,6 +50,7 @@ private:
 	int x, y, d;
 	//center color and side color
 	int CC, SC;
+	bool newPiece;
 	//int testerInt;
 public:
 	pieceClass(): x(0), y(0), d(eNone), 
@@ -59,6 +60,7 @@ public:
 	void movePiece(int a_dir);
 	void rotateClockwise();
 	void rotateCounterClockwise();
+	bool isNew();
 
 	inline int getX() {return x;}
 	inline int getY() {return y;}

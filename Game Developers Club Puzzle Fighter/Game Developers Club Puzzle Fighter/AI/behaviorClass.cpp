@@ -1,6 +1,8 @@
 #include "behaviorClass.h"
+#include <iostream>
+using namespace std;
 
-
+class pos;
 
 behaviorParent::behaviorParent()
 {
@@ -21,7 +23,7 @@ void basicBehavior::findSpot()
 	//pos.x = iterator % 6;
 	//pos.y = 14;
 	//pos.d = 0;
-	desiredPos.set(iterator % 6, 14, 0);
+	desiredPos.set(iterator % 6, 14, 2);
 	iterator++;
 	finished = true;
 	return;
