@@ -9,6 +9,10 @@
 #define BOMB_BLASTS 4
 #define SUPERPOWERS 5
 
+const int POINTS_CLEARBLOCK = 10;
+const int POINTS_BOMBBLASTS = 500;
+const int CHAIN_SCORE = 50;
+
 class Score_States : public World_State
 {
 private:
