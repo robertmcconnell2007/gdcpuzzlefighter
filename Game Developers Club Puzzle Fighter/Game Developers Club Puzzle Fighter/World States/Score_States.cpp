@@ -8,6 +8,11 @@ Score_States* Score_States::Ins()
 
 void Score_States::begin()
 {
+	//set total score to zero;
+	m_totalScore = 0;
+
+	//set text to NULL
+	m_textScore = NULL;
 }
 
 void Score_States::update(int msPassed)
