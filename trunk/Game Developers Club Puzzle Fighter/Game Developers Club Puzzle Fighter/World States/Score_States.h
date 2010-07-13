@@ -33,4 +33,7 @@ public:
 	void draw();
 	void input(SDL_Event e);
 	void exit();
+
+	//Accessors and Mutators
+	void setState(unsigned int a_state){scoreState = a_state;}
 };
