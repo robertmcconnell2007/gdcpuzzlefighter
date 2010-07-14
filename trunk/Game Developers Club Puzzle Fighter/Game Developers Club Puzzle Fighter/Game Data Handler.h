@@ -85,6 +85,19 @@ enum pieceTypes
 };
 
 class World_State;
+
+
+//button struct
+struct Button
+{
+	SDL_Surface * m_image;//image that should be drawn on the button
+	SDL_Rect m_position;//where the button should be drawn
+	Button(): m_image(NULL) {}//COTOR
+	~Button() {if(m_image) SDL_FreeSurface(m_image);}//DECOTOR
+	bool ClickedIn(SDL_Event e);//return true if mouse position in
+};
+
+
 //GDH -> Game Data Handler
 class GDH
 {

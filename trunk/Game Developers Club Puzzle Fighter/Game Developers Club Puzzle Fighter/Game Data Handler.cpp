@@ -15,6 +15,14 @@
 #include "Game Data Handler.h"
 #include "World States\World_States Core.h"
 
+//return true if mouse position in
+bool Button::ClickedIn(SDL_Event e)
+{
+	if( e.motion.x >= m_position.x && e.motion.x <= m_position.x + m_position.w &&
+		e.motion.y >= m_position.y && e.motion.y <= m_position.y + m_position.h)
+		return true;
+	return false;
+}
 
 // COTR / DECOTR / OPERATOR
 GDH::GDH()
