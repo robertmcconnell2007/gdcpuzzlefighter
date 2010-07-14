@@ -22,6 +22,11 @@ void Score_States::update(int msPassed)
 
 void Score_States::draw()
 {
+	/*
+	The score will draw the old score
+							snow on the screen
+							the new score.
+	*/
 }
 
 void Score_States::input(SDL_Event e)

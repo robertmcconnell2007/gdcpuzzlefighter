@@ -33,6 +33,8 @@ private:
 	SDL_Rect m_textRect;
 	// this is the current scoring mechanic
 	ScoreStateTypes m_scoreState;
+
+	// Draw Sub function
 protected:
 public:
 	static Score_States * Ins();
