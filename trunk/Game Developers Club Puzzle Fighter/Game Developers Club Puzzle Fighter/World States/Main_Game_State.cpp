@@ -22,6 +22,7 @@ void GamePlay::begin()
 	pieceSize.w = 20;
 	p1Flag = eNoInput;
 	p2Flag = eNoInput;
+	// add score varibale here
 }
 
 void GamePlay::update(int msPassed)
@@ -41,12 +42,14 @@ void GamePlay::update(int msPassed)
 			p2Flag = AI::Ins()->getMove();
 		}
 	//}
+		// updating the score happens here.
 }
 
 void GamePlay::draw()
 {
 	boards[0]->drawBoard(0,0, pieceSize);
 	boards[1]->drawBoard((pieceSize.w * (BOARDWIDTH + 4)),0, pieceSize);
+	// draw the score here
 }
 
 void GamePlay::input(SDL_Event e)
