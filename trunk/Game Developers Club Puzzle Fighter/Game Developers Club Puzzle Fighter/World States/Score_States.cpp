@@ -9,7 +9,7 @@ Score_States* Score_States::Ins()
 void Score_States::begin()
 {
 	//set total score to zero;
-	m_totalScore = 0;
+	m_totalScore = m_oldScore = 0;
 
 	//set text to NULL
 	m_textScore = NULL;
@@ -17,6 +17,7 @@ void Score_States::begin()
 
 void Score_States::update(int msPassed)
 {
+	//save current score before modification
 }
 
 void Score_States::draw()

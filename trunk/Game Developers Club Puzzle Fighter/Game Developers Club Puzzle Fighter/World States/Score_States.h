@@ -2,16 +2,19 @@
 #include <stdlib.h>
 #include "World_States Core.h"
 
-#define NO_ACTION   0
-#define CLEAR_BOCKS 1
-#define END_SCORING 2
-#define CHAIN_SCORE 3
-#define BOMB_BLASTS 4
-#define SUPERPOWERS 5
+enum ScoreStateTypes
+{
+	NO_ACTION,
+	CLEAR_BOCKS,
+	END_SCORING,
+	CHAIN_SCORE,
+	BOMB_BLASTS,
+	SUPERPOWERS
+};
 
 const int POINTS_CLEARBLOCK = 10;
 const int POINTS_BOMBBLASTS = 500;
-const int CHAIN_SCORE = 50;
+const int CHAIN_SCORES = 50;
 
 class Score_States : public World_State
 {
@@ -23,12 +26,13 @@ private:
 	char* m_textScore;
 	// this is the total score for the player
 	unsigned int m_totalScore;
+	unsigned int m_oldScore;
 	// this hold the images needed to display
 	SDL_Surface * m_textSurface;
 	// this holds the rect to blit to surface
 	SDL_Rect m_textRect;
 	// this is the current scoring mechanic
-	unsigned int m_scoreState;
+	ScoreStateTypes m_scoreState;
 protected:
 public:
 	static Score_States * Ins();
@@ -39,5 +43,5 @@ public:
 	void exit();
 
 	//Accessors and Mutators
-	void setState(unsigned int a_state){scoreState = a_state;}
+	void setState(unsigned int a_state){m_scoreState = (ScoreStateTypes)a_state;}
 };
