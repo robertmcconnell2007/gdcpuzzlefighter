@@ -3,7 +3,7 @@
 #include <ctime>
 #include "..\include\SDL.h"
 //TODO: true type font .h isn't loading properly, fix it
-//#include "SDL_ttf.h"	// true-type font library for SDL
+#include "SDL_ttf.h"	// true-type font library for SDL
 #include "Game Data Handler.h"
 #include "World States/World_States Core.h"
 #include "AI/aiClass.h"
@@ -17,11 +17,11 @@ int main(int argc, char ** argv)
 	{
 		return 1;
 	}
-	//if(TTF_Init() != 0)
-	//{
-	//	printf("could not initialize True Type Fonts\n");
-	//	return 2;
-	//}
+	if(TTF_Init() != 0)
+	{
+		printf("could not initialize True Type Fonts\n");
+		return 2;
+	}
 
 	Uint32 then = SDL_GetTicks(), now;
 	int msPassed = 0;
@@ -64,6 +64,8 @@ int main(int argc, char ** argv)
 				return 1;
 		}
 	}
+	//exit SDL_TTF
+	TTF_Quit();
 	//close out sdl
 	SDL_Quit();
 	return 0;

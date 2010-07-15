@@ -14,6 +14,8 @@ GamePlay* GamePlay::Ins()
 void GamePlay::begin()
 {
 	AI::Ins()->setNewAI(1, eBasicBehavior);
+	//begin Score tracking
+	Score_States::Ins()->begin();
 	boards[0] = new gameBoard;
 	boards[0]->init();
 	boards[1] = new gameBoard;
@@ -22,7 +24,6 @@ void GamePlay::begin()
 	pieceSize.w = 20;
 	p1Flag = eNoInput;
 	p2Flag = eNoInput;
-	// add score varibale here
 }
 
 void GamePlay::update(int msPassed)
@@ -50,6 +51,7 @@ void GamePlay::draw()
 	boards[0]->drawBoard(0,0, pieceSize);
 	boards[1]->drawBoard((pieceSize.w * (BOARDWIDTH + 4)),0, pieceSize);
 	// draw the score here
+	Score_States::Ins()->draw();
 }
 
 void GamePlay::input(SDL_Event e)
@@ -98,6 +100,7 @@ void GamePlay::exit()
 	boards[1]->cleanUp();
 	delete boards[0];
 	delete boards[1];
+	Score_States::Ins()->exit();
 }
 
 //omg all the functions for the board classes etc
