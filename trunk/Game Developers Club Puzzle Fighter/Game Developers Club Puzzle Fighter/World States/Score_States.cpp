@@ -16,8 +16,8 @@ void Score_States::begin()
 	m_totalScore = m_oldScore = 0;
 
 	// set x & y of rect
-	m_oldTextRect.x = 0;
-	m_oldTextRect.y = 640 / 2;
+	//m_oldTextRect.x = 0;
+	//m_oldTextRect.y = 640 / 2;
 
 	// create outr score strings
 	m_oldTextScore = new char[9];
@@ -50,7 +50,7 @@ void Score_States::draw()
 		t_surface = TTF_RenderText_Solid(m_font, m_oldTextScore,m_textColor);
 		m_oldTextRect.w = t_surface->w;
 		m_oldTextRect.h = t_surface->h;
-		SDL_BlitSurface(t_buffer,NULL,t_surface,&m_oldTextRect);
+		drawATile(t_surface,&m_oldTextRect,0,t_buffer,0,320);
 		SDL_FreeSurface(t_surface);
 		SDL_FreeSurface(t_buffer);
 	}
