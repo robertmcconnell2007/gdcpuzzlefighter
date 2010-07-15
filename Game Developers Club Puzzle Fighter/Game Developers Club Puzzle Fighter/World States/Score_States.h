@@ -3,8 +3,6 @@
 #include "World_States Core.h"
 #include "SDL_TTF.h"
 
-// Working (no bugs and runs on my end)!  Added draw code to Score_State and Main_Game_State.  Uncommented TTF_Init in MAIN.cpp and added TTF_Quit() before SDL_Quit().
-
 enum ScoreStateTypes
 {
 	NO_ACTION,
@@ -15,9 +13,12 @@ enum ScoreStateTypes
 	SUPERPOWERS
 };
 
+const int MAX_SCORE_WITDH = 12 * 9;
 const int POINTS_CLEARBLOCK = 10;
 const int POINTS_BOMBBLASTS = 500;
 const int POINTS_CHAINS = 50;
+const int SNOW_FRAMES = 4;
+const int SNOW_WIDTH = 154;
 
 class Score_States : public World_State
 {
@@ -31,8 +32,8 @@ private:
 	// this is the total score for the player
 	unsigned int m_totalScore;
 	unsigned int m_oldScore;
-	// this hold the images needed to display
-	SDL_Surface * m_textSurface;
+	// this hold the images needed to display the score transition
+	SDL_Surface * m_snowSurface;
 	// text color
 	SDL_Color m_textColor;
 	// this holds the rect to blit to surface
