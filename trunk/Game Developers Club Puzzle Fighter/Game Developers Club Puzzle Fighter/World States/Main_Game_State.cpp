@@ -260,6 +260,7 @@ void blockList::removeBlock(int a_index)
 		previous = walker;
 		walker = walker->m_next;		
 	}
+	// score update state | CLEAR_BLOCKS
 }
 
 blockListNode * blockList::getBlock(int a_index)
