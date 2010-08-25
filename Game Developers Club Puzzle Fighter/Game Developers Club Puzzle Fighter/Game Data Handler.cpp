@@ -59,7 +59,7 @@ bool GDH::Initialize()
 	if ( m_psScreen == NULL )
 		return false;
 
-	GDH::Ins()->changeState(/*(World_State*)*/Splash_Screen::Ins());
+	this->changeState(/*(World_State*)*/Splash_Screen::Ins());
 
 	return true;
 }
@@ -107,7 +107,7 @@ void GDH::input()
 	}
 	if(m_uE.key.keysym.sym == SDLK_SPACE) //TODO: delete this later
 	{
-		GDH::Ins()->changeState(GamePlay::Ins());
+		this->changeState(GamePlay::Ins());
 	}
 }
 
